@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "mysql://root:01677037790z@localhost:3306/multivendor_ecommerce",
+    "NEXT_PUBLIC_BASE_URL": "https://your-deployed-site.vercel.app"
+  }
+}
