@@ -8,7 +8,7 @@ interface LogoProps {
 }
 const Logo: FC<LogoProps> = ({ width, height }) => {
   return (
-    <div className="z-50" style={{ width: width, height: height }}>
+    <div className="z-50 mt-2" style={{ width: width, height: height }}>
       <Image
         src={LogoImg}
         alt="GoShop"

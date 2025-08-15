@@ -8,7 +8,7 @@ export default function UserInfo({ user }: { user: User | null }) {
   const role = user?.privateMetadata?.role?.toString();
   return (
     <div>
-      <div>
+      <div className="overflow-hidden">
         <Button
           className="w-full mt-5 mb-4 flex items-center justify-between py-10"
           variant="ghost"

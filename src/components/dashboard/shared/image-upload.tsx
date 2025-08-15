@@ -18,7 +18,6 @@ interface ImageUploadProps {
   type: "standard" | "profile" | "cover";
   dontShowPreview?: boolean;
   error?: boolean;
-  cloudinary_key?: string;
 }
 
 const ImageUpload: FC<ImageUploadProps> = ({
@@ -53,7 +52,6 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
   const onUpload = (result: any) => {
     onChange(result.info.secure_url);
-    console.log("Upload successful:", result);
   };
 
   if (type === "profile") {
@@ -76,10 +74,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             className="w-52 h-52 rounded-full object-cover absolute top-0 left-0 bottom-0 right-0"
           />
         )}
-        <CldUploadWidget
-          onSuccess={onUpload}
-          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME}
-        >
+        <CldUploadWidget onSuccess={onUpload} uploadPreset="acba8r8m">
           {({ open }) => {
             const onClick = () => {
               open();
@@ -111,25 +106,28 @@ const ImageUpload: FC<ImageUploadProps> = ({
   } else if (type === "cover") {
     return (
       <div
-        className={cn(
-          "relative w-full bg-gray-100 rounded-lg bg-gradient-to-b from-gray-100 via-gray-100 to-gray-400 overflow-hidden",
-          {
-            "from-red-100 to-red-200 ": error,
-            "animate-bounce": isBouncing,
-          }
-        )}
-        style={{ height: "348px" }}
+        className={cn("relative w-full rounded-xl overflow-hidden group", {
+          "from-red-100 to-red-200": error,
+          "animate-bounce": isBouncing,
+        })}
+        style={{ height: "400px", background: "#e5e7eb" }}
       >
-        {value.length > 0 && (
+        {value.length > 0 ? (
           <Image
             src={value[0]}
-            alt=""
+            alt="Cover image"
             width={1200}
-            height={1200}
-            className="w-full h-full rounded-lg object-cover"
+            height={400}
+            className="w-full h-full object-cover"
           />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300" />
         )}
-        <CldUploadWidget onSuccess={onUpload} uploadPreset="ufb48euh">
+
+        {/* Overlay (blur and darken a bit like Facebook) */}
+        <div className="absolute inset-0 bg-black/10 backdrop-blur-sm group-hover:bg-black/20 transition-all duration-300" />
+
+        <CldUploadWidget onSuccess={onUpload} uploadPreset="acba8r8m">
           {({ open }) => {
             const onClick = () => {
               open();
@@ -138,22 +136,20 @@ const ImageUpload: FC<ImageUploadProps> = ({
             return (
               <button
                 type="button"
-                className="absolute bottom-4 right-4 flex items-center font-medium text-[17px] py-3 px-6 text-white bg-gradient-to-t from-blue-primary to-blue-300 border-none shadow-lg rounded-full hover:shadow-md active:shadow-sm"
-                disabled={disabled}
                 onClick={onClick}
+                disabled={disabled}
+                className="absolute bottom-4 right-4 flex items-center gap-2 px-5 py-2 rounded-full bg-white/80 backdrop-blur-sm text-blue-700 font-semibold text-sm shadow-md hover:bg-white hover:shadow-lg transition-all"
               >
                 <svg
                   viewBox="0 0 640 512"
-                  fill="white"
+                  fill="currentColor"
                   height="1em"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="mr-2"
+                  className="w-4 h-4"
                 >
                   <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z" />
                 </svg>
-                <span>
-                  {value.length > 0 ? "Change cover" : "Upload a cover"}
-                </span>
+                {value.length > 0 ? "Change cover" : "Upload a cover"}
               </button>
             );
           }}
@@ -193,7 +189,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
               </div>
             ))}
         </div>
-        <CldUploadWidget onSuccess={onUpload} uploadPreset="ufb48euh">
+        <CldUploadWidget onSuccess={onUpload} uploadPreset="acba8r8m">
           {({ open }) => {
             const onClick = () => {
               open();
