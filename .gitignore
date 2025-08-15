@@ -13,6 +13,7 @@
 /.next/
 /out/
 
+
 # production
 /build
 
@@ -35,6 +36,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Windows temp & config
+AppData/
+*.tmp
+.gitconfig
+
 
 /src/generated/prisma
 
