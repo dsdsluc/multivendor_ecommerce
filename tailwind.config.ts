@@ -59,7 +59,7 @@ const config = {
           background: "#FD384F",
           hover: "#e23246",
           primary: "#FA6338",
-          seconadry: "#d3031c",
+          secondary: "#d3031c",
           border: "#ffe6e7",
         },
         main: {
@@ -87,7 +87,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        home: "url(/public/assets/images/home-wallpaper.webp)",
+        home: "url(/assets/images/home-wallpaper.webp)",
       },
       transitionTimingFunction: {
         "bezier-1": "cubic-bezier(.645,.045,.355,1)",
